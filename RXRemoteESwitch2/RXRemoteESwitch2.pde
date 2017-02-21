@@ -112,8 +112,10 @@ void setup()
 
 void relayFSM()
 {
+  USB.println(F("PRE RX"));
   // receive packet
   e = sx1272.receivePacketTimeout(12000); // minimum: RTT + TX TO = 2s + 4s = 6s to be sure, we use 12s
+  USB.println(F("POST RX"));
   if (e != 0)
   {
     // handle timeout
@@ -126,7 +128,9 @@ void relayFSM()
     // Try to handle request of master device
     switchState = (States)(sx1272.packet_received.data[0]);
     uint8_t payload = (uint8_t)relayState;
+    USB.println(F("PRE TX"));
     e = sx1272.sendPacketTimeout(ESTOP_MASTER_ADDR, &payload, 1, 1000);
+    USB.println(F("POST TX"));
     if (e != 0)
     {
        // handle transmission timeout
