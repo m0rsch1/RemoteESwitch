@@ -1,0 +1,297 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title "Relay Circuit for Remote Emergency Switch"
+Date "2017-02-24"
+Rev "1"
+Comp "DFKI/ESA"
+Comment1 "Moritz Schilling"
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Screw_Terminal_1x03 J1
+U 1 1 58B00A89
+P 2050 2150
+F 0 "J1" H 2050 2500 50  0000 C TNN
+F 1 "Screw_Terminal_1x03" V 1900 2150 50  0000 C TNN
+F 2 "" H 2050 1825 50  0001 C CNN
+F 3 "" H 2025 2250 50  0001 C CNN
+	1    2050 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Screw_Terminal_1x03 J2
+U 1 1 58B00AFD
+P 2050 3900
+F 0 "J2" H 2050 4250 50  0000 C TNN
+F 1 "Screw_Terminal_1x03" V 1900 3900 50  0000 C TNN
+F 2 "" H 2050 3575 50  0001 C CNN
+F 3 "" H 2025 4000 50  0001 C CNN
+	1    2050 3900
+	1    0    0    -1  
+$EndComp
+$Comp
+L BC547 Q1
+U 1 1 58B00BF3
+P 4950 3800
+F 0 "Q1" H 5150 3875 50  0000 L CNN
+F 1 "BC547" H 5150 3800 50  0000 L CNN
+F 2 "TO-92" H 5150 3725 50  0000 L CIN
+F 3 "" H 4950 3800 50  0000 L CNN
+	1    4950 3800
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R1
+U 1 1 58B00CF3
+P 4300 3800
+F 0 "R1" V 4380 3800 50  0000 C CNN
+F 1 "520" V 4300 3800 50  0000 C CNN
+F 2 "" V 4230 3800 50  0000 C CNN
+F 3 "" H 4300 3800 50  0000 C CNN
+	1    4300 3800
+	0    1    1    0   
+$EndComp
+$Comp
+L TS5A3160 U1
+U 1 1 58B014C6
+P 5050 2950
+F 0 "U1" H 4950 3275 50  0000 R CNN
+F 1 "TS5A3160" H 4950 3200 50  0000 R CNN
+F 2 "" H 5100 2700 50  0000 L CNN
+F 3 "" H 5150 2950 50  0000 C CNN
+	1    5050 2950
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR01
+U 1 1 58B01582
+P 5050 2350
+F 0 "#PWR01" H 5050 2200 50  0001 C CNN
+F 1 "+5V" H 5050 2490 50  0000 C CNN
+F 2 "" H 5050 2350 50  0000 C CNN
+F 3 "" H 5050 2350 50  0000 C CNN
+	1    5050 2350
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR02
+U 1 1 58B015AF
+P 5050 4300
+F 0 "#PWR02" H 5050 4050 50  0001 C CNN
+F 1 "GND" H 5050 4150 50  0000 C CNN
+F 2 "" H 5050 4300 50  0000 C CNN
+F 3 "" H 5050 4300 50  0000 C CNN
+	1    5050 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L D D1
+U 1 1 58B016A9
+P 6000 2950
+F 0 "D1" H 6000 3050 50  0000 C CNN
+F 1 "1N4148" H 6000 2850 50  0000 C CNN
+F 2 "" H 6000 2950 50  0000 C CNN
+F 3 "" H 6000 2950 50  0000 C CNN
+	1    6000 2950
+	0    1    1    0   
+$EndComp
+Text Label 3750 3800 0    60   ~ 0
+RELAY
+Text Label 4050 2850 0    60   ~ 0
+NO
+Text Label 4050 3050 0    60   ~ 0
+NC
+Wire Wire Line
+	5050 3250 5050 3600
+Wire Wire Line
+	4450 3800 4750 3800
+Wire Wire Line
+	5050 2350 5050 2650
+Wire Wire Line
+	5050 4000 5050 4300
+Wire Wire Line
+	5050 2450 6000 2450
+Wire Wire Line
+	6000 2450 6000 2800
+Connection ~ 5050 2450
+Wire Wire Line
+	6000 3100 6000 3400
+Wire Wire Line
+	6000 3400 5050 3400
+Connection ~ 5050 3400
+Wire Wire Line
+	3750 3800 4150 3800
+Wire Wire Line
+	4650 2850 4050 2850
+Wire Wire Line
+	4650 3050 4050 3050
+Text Label 5650 2850 0    60   ~ 0
+IN
+Wire Wire Line
+	5450 2850 5650 2850
+$Comp
+L GND #PWR03
+U 1 1 58B0228D
+P 7300 4300
+F 0 "#PWR03" H 7300 4050 50  0001 C CNN
+F 1 "GND" H 7300 4150 50  0000 C CNN
+F 2 "" H 7300 4300 50  0000 C CNN
+F 3 "" H 7300 4300 50  0000 C CNN
+	1    7300 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP C1
+U 1 1 58B022D3
+P 7300 3850
+F 0 "C1" H 7325 3950 50  0000 L CNN
+F 1 "1uF" H 7325 3750 50  0000 L CNN
+F 2 "" H 7338 3700 50  0000 C CNN
+F 3 "" H 7300 3850 50  0000 C CNN
+	1    7300 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L +5V #PWR04
+U 1 1 58B02369
+P 7300 3450
+F 0 "#PWR04" H 7300 3300 50  0001 C CNN
+F 1 "+5V" H 7300 3590 50  0000 C CNN
+F 2 "" H 7300 3450 50  0000 C CNN
+F 3 "" H 7300 3450 50  0000 C CNN
+	1    7300 3450
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7300 4000 7300 4300
+Wire Wire Line
+	7300 3700 7300 3450
+$Comp
+L GND #PWR05
+U 1 1 58B02518
+P 2550 4400
+F 0 "#PWR05" H 2550 4150 50  0001 C CNN
+F 1 "GND" H 2550 4250 50  0000 C CNN
+F 2 "" H 2550 4400 50  0000 C CNN
+F 3 "" H 2550 4400 50  0000 C CNN
+	1    2550 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2250 4100 2550 4100
+Wire Wire Line
+	2550 4100 2550 4400
+$Comp
+L +5V #PWR06
+U 1 1 58B02568
+P 2550 3400
+F 0 "#PWR06" H 2550 3250 50  0001 C CNN
+F 1 "+5V" H 2550 3540 50  0000 C CNN
+F 2 "" H 2550 3400 50  0000 C CNN
+F 3 "" H 2550 3400 50  0000 C CNN
+	1    2550 3400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2250 3700 2550 3700
+Wire Wire Line
+	2550 3700 2550 3400
+Text Label 2550 3900 0    60   ~ 0
+RELAY
+Wire Wire Line
+	2250 3900 2550 3900
+Text Label 2550 1950 0    60   ~ 0
+NO
+Text Label 2550 2350 0    60   ~ 0
+NC
+Text Label 2550 2150 0    60   ~ 0
+IN
+Wire Wire Line
+	2250 1950 2550 1950
+Wire Wire Line
+	2250 2150 2550 2150
+Wire Wire Line
+	2250 2350 2550 2350
+Wire Notes Line
+	1800 5150 5250 5150
+Text Notes 1950 5700 0    60   ~ 0
+NO : Normally Open (Use when cutting a voltage means emergency)\nNC : Normally Closed\nIN : Voltage or Signal to be switched\nRELAY : when high (3V3) turns on relay
+Wire Notes Line
+	5250 5150 5250 5800
+Wire Notes Line
+	5250 5800 1800 5800
+Wire Notes Line
+	1800 5800 1800 5150
+$Comp
+L GND #PWR07
+U 1 1 58B03116
+P 4600 4300
+F 0 "#PWR07" H 4600 4050 50  0001 C CNN
+F 1 "GND" H 4600 4150 50  0000 C CNN
+F 2 "" H 4600 4300 50  0000 C CNN
+F 3 "" H 4600 4300 50  0000 C CNN
+	1    4600 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R2
+U 1 1 58B031B2
+P 4600 4050
+F 0 "R2" V 4680 4050 50  0000 C CNN
+F 1 ">10k" V 4600 4050 50  0000 C CNN
+F 2 "" V 4530 4050 50  0000 C CNN
+F 3 "" H 4600 4050 50  0000 C CNN
+	1    4600 4050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 3900 4600 3800
+Connection ~ 4600 3800
+Wire Wire Line
+	4600 4300 4600 4200
+Text Notes 6750 1650 0    60   ~ 0
+Attention: The TS5A3160 is just a dummy for a 5V electromechanical Relay.\nPlease wire it accordingly
+Wire Notes Line
+	6600 1400 6600 1750
+Wire Notes Line
+	6600 1750 10350 1750
+Wire Notes Line
+	10350 1750 10350 1400
+Wire Notes Line
+	10350 1400 6600 1400
+$EndSCHEMATC
