@@ -114,12 +114,12 @@ void relayFSM()
 {
   USB.println(F("PRE RX"));
   // receive packet
-  e = sx1272.receivePacketTimeout(12000); // minimum: RTT + TX TO = 2s + 4s = 6s to be sure, we use 12s
+  e = sx1272.receivePacketTimeout(20000); // minimum: TX TO + 1s + TX + TX TO + 1s = 4 + N * (TX + TX TO + 1s) = 9s@N=1, 14s@N=2, 19s@N=3
   USB.println(F("POST RX"));
   if (e != 0)
   {
     // handle timeout
-    // After 10 Packets we really have to do something !!!
+    // This means, that at least 3 consecutive packets of TX have been lost
     switchState = UNKNOWN;
     USB.println(F("RX TO"));
   }
