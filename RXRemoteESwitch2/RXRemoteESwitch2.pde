@@ -31,6 +31,11 @@
 // sensor I/0: Use to switch external 5V relay
 int relayPin=DIGITAL7;
 
+// these pins are used to probe for manual override of the e-stop
+// if probeOut is connected to probeIn, the relay will always be turned on!
+int probeOutPin = DIGITAL2;
+int probeInPin = DIGITAL3;
+
 // Switch stuff
 enum States {
   UNKNOWN = 0,
@@ -110,32 +115,51 @@ void setup()
   USB.println(F("Setup complete."));
 }
 
+bool manualOverrideEngaged()
+{
+  pinMode(probeOutPin, OUTPUT);
+  pinMode(probeInPin, INPUT);
+  digitalWrite(probeOutPin, HIGH);
+  delay(1);
+  if (digitalRead(probeInPin) != HIGH)
+  {
+    return false;
+  }
+  digitalWrite(probeOutPin, LOW);
+  delay(1);
+  if (digitalRead(probeInPin) != LOW)
+  {
+    return false;
+  }
+  return true;
+}
+
 void relayFSM()
 {
-  USB.println(F("PRE RX"));
+  //USB.println(F("PRE RX"));
   // receive packet
   e = sx1272.receivePacketTimeout(20000); // minimum: TX TO + 1s + TX + TX TO + 1s = 4 + N * (TX + TX TO + 1s) = 9s@N=1, 14s@N=2, 19s@N=3
-  USB.println(F("POST RX"));
+  //USB.println(F("POST RX"));
   if (e != 0)
   {
     // handle timeout
     // This means, that at least 3 consecutive packets of TX have been lost
     switchState = UNKNOWN;
-    USB.println(F("RX TO"));
+    //USB.println(F("RX TO"));
   }
   else
   {
     // Try to handle request of master device
     switchState = (States)(sx1272.packet_received.data[0]);
     uint8_t payload = (uint8_t)relayState;
-    USB.println(F("PRE TX"));
+    //USB.println(F("PRE TX"));
     e = sx1272.sendPacketTimeout(ESTOP_MASTER_ADDR, &payload, 1, 1000);
-    USB.println(F("POST TX"));
+    //USB.println(F("POST TX"));
     if (e != 0)
     {
        // handle transmission timeout
     }
-    USB.println(F("RX SS/TX RS"));
+    //USB.println(F("RX SS/TX RS"));
   }
   
   // Internal state machine transitions
@@ -162,20 +186,27 @@ void relayFSM()
       break;
   }
   
+  // Detect manual override
+  if (manualOverrideEngaged())
+  {
+    USB.println(F("MAN. OVERRIDE"));
+    internalState = OPENED;
+  }
+  
   // Set relay according to internal state (which might have changed)
   switch(internalState)
   {
     default:
     case UNKNOWN:
-      //USB.println(F("> SWITCH ? CLOSING RELAY"));
+      USB.println(F("SW ? CLOSING"));
       digitalWrite(relayPin, LOW);
       break;
     case OPENED:
-      //USB.println(F("> SWITCH OPENED. OPENING RELAY"));
+      USB.println(F("SW OPEN. OPENING"));
       digitalWrite(relayPin, HIGH);
       break;
     case CLOSED:
-      //USB.println(F("> SWITCH CLOSED. CLOSING RELAY"));
+      USB.println(F("SW CLOSED. CLOSING"));
       digitalWrite(relayPin, LOW);
       break;
   }
